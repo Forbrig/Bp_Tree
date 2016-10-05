@@ -3,6 +3,27 @@
 #include <stdbool.h>
 #include "bp_node.h"
 
+//receive the node that will be the 'root' in the print
+//that means we can give a node that is a leaf to print him and all is after
+void print_tree(bp_node* root) {
+	int i;
+	for (i = 0; i < root->size; i++) {
+		
+		printf("%d. %d", i, root->key[i]);
+		
+		if (root->pos[i] != NULL) {
+			print_tree(root->pos[i]);
+		}
+		if (i == root->size && root->pos[i+1] != NULL) {
+			print_tree(root->pos[i+1]);
+		}
+		printf("\n");
+	}
+	
+	
+	
+}
+
 //create a new empty node;
 bp_node* new_node() {
 	bp_node* new = (bp_node *) malloc (sizeof(bp_node));
@@ -89,26 +110,32 @@ int insert_key2(bp_node* x, int key) {
 	int i, j;
 	bp_node* n;
 	bp_node* n2;
-	//simple ordenation
-	for (i = 0; i < x->size - 1; i++) {
-		if (key < x->key[i]) {
-			aux = x->key[i];
-			x->key[i] = key;
-			key = aux;
-			//update pointers
-			if (flag == -1) {
-				flag = i;
-				n = x->pos[i+1];
-				for (j = i + 1; j < x->size; j++) {
-					n2 = x->pos[j+1];
-					x->pos[j+1] = n;
-					n = n2;
+	if (x->size == 0) { //there is no keys on this node
+		x->key[0] = key;
+	} else { //has a key (or more) on the node
+		for (i = 0; i <= x->size; i++) { //walk searching for his place
+			 if (i == x->size) { //has found his place
+				x->key[i] = key;
+				break;
+			 } else if (key > x->key[i]) {
+				continue;
+			 } else if (key < x->key[i]) { //simple ordenation
+				aux = x->key[i];
+				x->key[i] = key;
+				key = aux;
+				//update pointers
+				if (flag == -1) {
+					flag = i;
+					n = x->pos[i+1];
+					for (j = i + 1; j < x->size; j++) {
+						n2 = x->pos[j+1];
+						x->pos[j+1] = n;
+						n = n2;
+					}
+					x->pos[x->size] = n;
 				}
-				x->pos[x->size] = n;
+					
 			}
-				
-		} else { 
-			i++;
 		}
 	}
 	x->size++;

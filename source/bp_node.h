@@ -6,10 +6,10 @@
 //typedef struct bp_node bp_node;
 typedef struct _node {
 	_Bool isLeaf, isRoot;
-	int size;
-	int key[NODE_LENGHT];//satellites if aren't leafs
+	int size; //who have values, (a leaf can be half full)
+	int key[NODE_LENGHT]; //satellites if aren't leafs
 	//int pos[NODE_LENGHT +1]; //literaly position of the left/right node.
-	struct _node* pos[NODE_LENGHT +1];
+	struct _node* pos[NODE_LENGHT +1]; //to walk on the tree, (left or right the chosen satellite)
 	struct _node* father;
 	struct _node* previous;
 	struct _node* next;
@@ -23,3 +23,4 @@ bp_node* split_node(bp_node*);
 bp_node* best_node_for_this_key(bp_node*, bp_node*, int);
 int insert_key2(bp_node*, int);
 void insert_key(bp_node*, int);
+void print_tree(bp_node* root);

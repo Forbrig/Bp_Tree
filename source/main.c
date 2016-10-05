@@ -14,16 +14,20 @@ void print_main() {
 }
 
 int main () {
-	print_main();
+	//print_main();
 	bp_node* root;
-
 	root = new_node();
+	root->isRoot = true;
+	
 	insert_key(root, 10);
-	insert_key(root, 11);
 	insert_key(root, 12);
+	insert_key(root, 11);
 	insert_key(root, 13);
 	insert_key(root, 14);
+	/*
 	insert_key(root, 15);
 	insert_key(root, 16);
+	*/
+	print_tree(root);
 	return 0;
 }

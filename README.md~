@@ -1,5 +1,5 @@
 # Bp_Tree
-A C implementation of B+ Tree. This implementation don't accept keys with duplicate values.
+A C implementation of B+ Tree. In this implementation we don't accept duplicat values.
 
 Main features:
 

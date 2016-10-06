@@ -75,13 +75,14 @@ void update_pointers(bp_node* father, bp_node* r, int index) {
 }
 
 //all internal splits are caused by splits in the leaves
-//danger zone, hard work (needs understand)
+//half the buckets go to the new node
+//but if the bucket (NODE_LENGHT) has an odd number?
 bp_node* split_node(bp_node* x) {
 	int i, j;
 	bp_node* new;
 	new = new_node();
 	x->size = mid_node();
-	if (NODE_LENGHT % 2 == 0) {
+	if (NODE_LENGHT % 2 == 0) { //if NODE_LENGHT has an even number
 		new->size = mid_node();
 		for (j = 0, i = (mid_node() + 1); i < NODE_LENGHT; i++, j++) {
 			new->key[j] = x->key[i];
@@ -154,6 +155,10 @@ void insert_key(bp_node* root, int key) {
 	if (aux->size < NODE_LENGHT) {
 		insert_key2(aux, key);
 	//case 2: the leaf is full
+	//* Insert the new leaf's smallest key and address into the parent.
+	//* If the parent is full, split it too.
+	//	* Add the middle key to the parent node.
+	//* Repeat until a parent is found that need not split.
 	} else if (aux->size == NODE_LENGHT) {
 		//split!
 		aux2 = split_node(aux);

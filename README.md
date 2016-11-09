@@ -7,7 +7,7 @@ Main features:
 
  * Mantain an minimum ocupation per node (50%), except in the root (if the balancing on exclusion is implemented).
 
- * To search an register we need to pass the height of the tree, that means we will pass the root and one node per height until we reach the leaf.
+ * To search a register we need to pass all the height of the tree, that means we will pass through the root and one node per height until we reach the leaf.
 
 The B+ Tree maintain, usually, 67% of the ocupation of the space.
 
